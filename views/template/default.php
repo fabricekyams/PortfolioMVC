@@ -15,8 +15,8 @@
 	        </div>
 		<div class="collapse navbar-collapse container">
 		<ul class="nav navbar-nav">
-		<li><a href="aboutme.php">About me</a></li>
-		<li><a href="index.php">Portfolio</a></li>
+		<li><a href="<?=WEBROOT?>">About me</a></li>
+		<li><a href="<?=WEBROOT?>projects/">Portfolio</a></li>
 		</ul>
 		</div>
 		</div>

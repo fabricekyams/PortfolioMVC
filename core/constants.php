@@ -13,5 +13,3 @@ define('IMAGE', ROOT . DIRECTORY_SEPARATOR . 'web/img/');
 define('DS', DIRECTORY_SEPARATOR);
 define('CORE', WEBROOT.'core'.DS);
 
-
-//define('WEBROOT', dirname($_SERVER['SCRIPT_NAME']).'/');

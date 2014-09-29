@@ -12,7 +12,7 @@ class Dispatcher{
 		Router::parseURL($this->req->getUrl(),$this->req);
 		$controller = $this->loadController();
 		if(in_array($this->req->getAction(),get_class_methods($controller) )){
-			call_user_func_array(array($controller, $this->req->getAction()), array());
+			call_user_func_array(array($controller, $this->req->getAction()),$this->req->getParrams());		
 		}else{
 			$this->error("Cette action n\'exite pas");
 		}		

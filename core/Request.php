@@ -9,7 +9,7 @@ class Request{
 	private  $url;
 	private $controller = 'home';
 	private $action = 'index';
-	private $parrams;
+	private $parrams = array();
 	/**
 	 * 
 	 */
@@ -37,22 +37,51 @@ class Request{
 	public function setUrl($url) {
 		$this->url = $url;
 	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getController() {
 		return $this->controller;
 	}
+	
+	/**
+	 * 
+	 * @param unknown $controller
+	 */
 	public function setController($controller) {
 		$this->controller = $controller;
 	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getAction() {
 		return $this->action;
 	}
+	
+	/**
+	 * 
+	 * @param unknown $action
+	 */
 	public function setAction($action) {
 		$this->action = $action;
 
 	}
+	
+	/**
+	 * 
+	 */
 	public function getParrams() {
 		return $this->parrams;
 	}
+	
+	/**
+	 * 
+	 * @param unknown $parrams
+	 */
 	public function setParrams($parrams) {
 		$this->parrams = $parrams;
 

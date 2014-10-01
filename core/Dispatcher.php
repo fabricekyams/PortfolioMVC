@@ -11,7 +11,7 @@ class Dispatcher{
 		$this->req= new Request();
 		Router::parseURL($this->req->getUrl(),$this->req);
 		$controller = $this->loadController();
-		if(in_array($this->req->getAction(),get_class_methods($controller) )){
+		if(in_array($this->req->getAction(),array_diff(get_class_methods($controller),get_class_methods('Controller')) )){
 			call_user_func_array(array($controller, $this->req->getAction()),$this->req->getParrams());		
 		}else{
 			$this->error("Cette action n\'exite pas");
@@ -20,11 +20,20 @@ class Dispatcher{
 
 	public function loadController(){
 		$name = ucfirst($this->req->getController()).'Controller';
+		$controllerFile='';
 		
-		if(file_exists(ROOT.DS.'controllers'.DS.$name.'.php')){
+		if (($this->req->getPrefix())){
+			$prefix = $this->req->getPrefix();
+			$controllerFile = ROOT.DS.'controllers'.DS.$prefix.DS.$name.'.php';
+		}
+		else {
 			$controllerFile = ROOT.DS.'controllers'.DS.$name.'.php';
+		}
+		if(file_exists($controllerFile)){
+			
 			require $controllerFile;
-			return  new $name($this->req);
+			$controller = new $name($this->req);
+			return  $controller;
 	
 		}else {
 			$this->error('Ce controlleur n\'existe pas');	

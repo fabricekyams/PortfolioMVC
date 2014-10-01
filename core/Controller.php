@@ -3,8 +3,9 @@ abstract class Controller{
 	
 	private $req;
 	private $vars = array();
-	private  $layout = 'default';
+	private  $layout ;
 	private  $model = array();
+	private $session;
 	 	
 	/**
 	 * 
@@ -12,15 +13,32 @@ abstract class Controller{
 	 */
 	public function __construct(Request $req){
 		$this->setReq($req);
+		$this->setSession(new Session());
+		$prefix =$this->req->getPrefix();
+		if(isset($prefix)&& $prefix=='admin'){
+			require ROOT.DS.'config'.DS.'security.php';
+		}
 	}
 	
 	/**
 	 * 
 	 * @param unknown $view
 	 */
-	public function render($view){
+	public function render($view,$layout = 'default'){
+		
 		extract($this->getVars());
-		$view = ROOT.DS.'views'.DS.$this->getReq()->getController().DS.$view.'.php';
+		if ($this->req->getPrefix()){
+			$prefix = $this->req->getPrefix();
+			$view = ROOT.DS.'views'.DS.$prefix.DS.$this->getReq()->getController().DS.$view.'.php';
+			if ($layout=='default'){
+				$this->setLayout($prefix);
+			}else {
+				$this->setLayout($layout);
+			}
+		}else{
+			$this->setLayout($layout);
+			$view = ROOT.DS.'views'.DS.$this->getReq()->getController().DS.$view.'.php';
+		}
 		ob_start();
 		require($view);
 		$renderContent = ob_get_clean();
@@ -74,6 +92,14 @@ abstract class Controller{
 		echo "ERROR 404: ".$message;
 		die();
 	}
+	
+	public function redirect($url, $code = 0){
+		if($code == 301){
+			header("HTTP/1.1 301 Moved Permanently");
+		}
+		header("Location: ".$url);
+		die();
+	}
 	/**
 	 * 
 	 */
@@ -119,6 +145,14 @@ abstract class Controller{
 	public function getModel() {
 		return $this->model;
 	}
+	public function getSession() {
+		return $this->session;
+	}
+	public function setSession($session) {
+		$this->session = $session;
+		return $this;
+	}
+	
 	
 	
 	

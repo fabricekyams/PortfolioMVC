@@ -10,6 +10,8 @@ class Request{
 	private $controller = 'home';
 	private $action = 'index';
 	private $parrams = array();
+	private $data = array();
+	private $prefix;
 	/**
 	 * 
 	 */
@@ -19,6 +21,26 @@ class Request{
 		if (isset($_SERVER['PATH_INFO'])){
 		$this->setUrl($_SERVER['PATH_INFO']);
 		}
+		
+		if (!empty($_POST)){
+			/*$_POST=$this->removeSpecialChars($_POST);
+			var_dump($_POST);*/
+			$this->data = $_POST;
+		}
+	}
+	
+	public function removeSpecialChars($post){
+		var_dump('here');
+		$data =array();
+		foreach ($post as $k => $v){
+			if(is_array($post[$k])){
+				$data = $this->removeSpecialChars($post[$k]);
+			
+			}else{
+				$data[$k]=htmlspecialchars($post[$k]);
+			}
+		}
+		return $data;
 		
 	}
 	
@@ -86,6 +108,22 @@ class Request{
 		$this->parrams = $parrams;
 
 	}
+	public function getPrefix() {
+		return $this->prefix;
+	}
+	public function setPrefix($prefix) {
+		$this->prefix = $prefix;
+		return $this;
+	}
+	public function getData() {
+		return $this->data;
+	}
+	public function setData($data) {
+		$this->data = $data;
+		return $this;
+	}
+	
+	
 	
 	
 	

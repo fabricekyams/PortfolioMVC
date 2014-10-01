@@ -9,18 +9,21 @@
 </head>
 <body>
 	 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+
+	<div class="container-fluid">
+	<div class="navbar-header">
+          <a href="#" class="navbar-brand">Admin</a>
+        </div>
+	<div class="collapse navbar-collapse container">
+	<ul class="nav navbar-nav">
+	<li class=""><a href="<?=WEBROOT?>private/">my profile</a></li>
+	<li class=""><a href="<?=WEBROOT?>private/projects">Projets</a></li>
+	</ul>
+	<a href=" <?=WEBROOT?>private/user/logout"><button class="btn btn-danger navbar-btn navbar-right" type="button">deconnexion</button></a>
 	
-		<div class="container-fluid "><div class="navbar-header">
-	          <a href="#" class="navbar-brand">MY PORTFOLIO</a>
-	        </div>
-		<div class="collapse navbar-collapse container">
-		<ul class="nav navbar-nav">
-		<li><a href="<?=WEBROOT?>">About me</a></li>
-		<li><a href="<?=WEBROOT?>projects/">Portfolio</a></li>
-		</ul>
-		</div>
-		</div>
-	</nav>
+	</div>
+	</div>
+</nav>
 		<div class="container">
 		
 			<?= $renderContent ?>
